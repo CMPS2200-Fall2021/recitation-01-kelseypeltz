@@ -44,6 +44,7 @@ def _binary_search(mylist, key, left, right):
 		#else the element is not in the list
 		return -1
 
+
 def test_binary_search():
 	assert binary_search([1,2,3,4,5], 5) == 4
 	assert binary_search([1,2,3,4,5], 1) == 0
@@ -63,13 +64,24 @@ def time_search(search_fn, mylist, key):
 
 	return runtime*1000
 
+
 def compare_search(sizes=[1e1, 1e2, 1e3, 1e4, 1e5, 1e6, 1e7]):
-		binary_search_time = time_search(binary_search(mylist, -1, 0, len(mylist)-1)
-		linear_search_time = time_search(linear_search(mylist, -1, 0, len(mylist)-1)
 
-		return (n, linear_search_time, binary_search_time)
+	tuplelist = []
+	alist = []
+	key = -1
 
-		print_results(compare_search())
+	for n in sizes:
+		for j in range(0, n-1):
+			alist.append(j)
+
+		binary_search_time = time_search(binary_search, alist, -1)
+		linear_search_time = time_search(linear_search, alist, -1)
+		tuple = (n, linear_search_time, binary_search_time)
+		tuplelist.append(tuple)
+
+		return tuplelist
+
 
 def print_results(results):
 	""" done """
@@ -85,3 +97,5 @@ def test_compare_search():
 	assert res[1][0] == 100
 	assert res[0][1] < 1
 	assert res[1][1] < 1
+
+print_results(compare_search())
